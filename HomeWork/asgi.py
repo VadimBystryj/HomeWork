@@ -1,5 +1,5 @@
 """
-ASGI config for HomeWork project.
+ASGI config for eBoard project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
