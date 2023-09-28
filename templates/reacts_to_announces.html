@@ -18,12 +18,14 @@ Reacts to {{ user.get_username }}'s announces
                <td>Date of posting &emsp;&emsp;</td>
                <td>Status &emsp;&emsp;&emsp;</td>
                <td>Actions</td>
+
            </tr>
             {% for react in Reacts %}
             {% if request.user == react.announce.author and request.user != react.author %}
            <tr>
                <td>{{ react.author }}</td>
                <td><a href="{% url 'react_detail' pk=react.id %}">{{ react.text|truncatewords:5 }}</a></td>
+
                <td>{{ react.dateCreation|date:'d M Y' }}</td>
                <td>{% if react.status == False %} Not accepted
                 {% else %}
@@ -35,6 +37,7 @@ Reacts to {{ user.get_username }}'s announces
                         <a class="btn btn-primary text-uppercase"
                            href="{% url 'react-accept' react_id=react.id announce_id=react.announce.id %}">Accept →</a>
                     </p>
+
                     {% else %}
                     {{empty}}
                     {% endif %}

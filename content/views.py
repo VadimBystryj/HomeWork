@@ -3,17 +3,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from datetime import datetime
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from .forms import AnnounceForm, UserReactionForm
 from .models import *
 
 
 class AnnounceList(ListView):
-    model = Announce  # Указываем модель, объекты которой будут выводиться
-    ordering = '-dateCreation'  # Поле, которое будет использоваться для сортировки объектов
-    template_name = 'announces.html'  # Указываем имя шаблона, в котором будут все инструкции о том,
-    # как именно пользователю должны быть показаны наши объекты
+    model = Announce
+    ordering = '-dateCreation'
+    template_name = 'announces.html'
     context_object_name = 'Announces'
     paginate_by = 10
 
@@ -53,6 +52,14 @@ class AnnounceDetail(DetailView):
         return context
 
 
+class AnnounceDelete(LoginRequiredMixin, DeleteView):
+    raise_exception = True
+    # permission_required = ('content.announce_delete')
+    model = Announce
+    template_name = 'announce_delete.html'
+    success_url = reverse_lazy('announce_list')
+
+
 class ReactionList(ListView):
     model = UserReaction
     ordering = '-dateCreation'  # Поле, которое будет использоваться для сортировки объектов
@@ -86,8 +93,9 @@ class ReactDetail(DetailView):
                   )
 
 
-class AnnounceCreate(LoginRequiredMixin, CreateView):
+class AnnounceCreate(LoginRequiredMixin,  CreateView):
     raise_exception = True
+    # permission_required = ('content.announce_edit')
     form_class = AnnounceForm
     model = Announce
     template_name = 'announce_edit.html'
@@ -120,9 +128,18 @@ class ReactionCreate(LoginRequiredMixin, CreateView):
 
         return redirect('content:react_detail')
 
-
 def react_accept(request, react_id, announce_id):
     react = get_object_or_404(UserReaction, id=react_id)
     react.status = False
     react.save()
     return redirect('announce_detail', pk=announce_id)
+
+class ReactionDelete(LoginRequiredMixin, DeleteView):
+    raise_exception = True
+    # permission_required = ('content.reaction_delete')
+    model = UserReaction
+    template_name = 'reaction_delete.html'
+    success_url = reverse_lazy('my_announces')
+
+
+

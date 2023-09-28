@@ -21,8 +21,8 @@ class SignUpForm(UserCreationForm):
 
     def save(self, *args, **kwargs):
         user = super(SignUpForm, self).save(*args, **kwargs)
-        announce_group = Group.objects.get(name='announce authors')
-        react_group = Group.objects.get(name='react authors')
+        announce_group = Group.objects.get(name='announce_authors')
+        react_group = Group.objects.get(name='react_authors')
         announce_group.user_set.add(user)
         react_group.user_set.add(user)
         return user

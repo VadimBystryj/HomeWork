@@ -24,5 +24,3 @@ def my_handler(sender, instance, created, **kwargs):
 		[mail],
 		fail_silently=False,
 	)
-
-

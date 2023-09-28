@@ -2,17 +2,21 @@
 
 {% block content %}
 <hr>
+
   <h3>React on: {{ React_id.announce.title }} by {{ React_id.announce.author }}</h3>
 
   <p><strong>Author:</strong> {{ React_id.author }}</p>
   <p><strong>Text:</strong> {{ React_id.text }}</p>
   <p><strong>Date:</strong> {{ React_id.dateCreation }}</p>
   <p><strong>Status:</strong>
-    {% if React_id.status == False %}
+    {% if React_id.status == True %}
     Not accepted
     {% else %}
     Accepted
     {% endif %}
+    {% if request.user.is_authenticated %}
+<a href="{% url 'reaction_delete' React_id.id %}">Delete </a>
+{%endif%}
   </p>
 
 {% endblock %}
