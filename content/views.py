@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -64,7 +64,6 @@ class ReactionList(ListView):
     model = UserReaction
     ordering = '-dateCreation'  # Поле, которое будет использоваться для сортировки объектов
     template_name = 'reacts_to_announces.html'  # Указываем имя шаблона, в котором будут все инструкции о том,
-    # как именно пользователю должны быть показаны наши объекты
     context_object_name = 'Reacts'
     paginate_by = 4
 
@@ -128,11 +127,13 @@ class ReactionCreate(LoginRequiredMixin, CreateView):
 
         return redirect('content:react_detail')
 
+
 def react_accept(request, react_id, announce_id):
     react = get_object_or_404(UserReaction, id=react_id)
-    react.status = False
+    react.status = True
     react.save()
     return redirect('announce_detail', pk=announce_id)
+
 
 class ReactionDelete(LoginRequiredMixin, DeleteView):
     raise_exception = True

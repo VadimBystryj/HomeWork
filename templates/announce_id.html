@@ -24,7 +24,7 @@ Content
                 <h4><b>Reaction:</b></h4>
                 <a href="{% url 'react_detail' pk=react.id %}">{{ react.text|truncatewords:2 }}</a>
                         (Author: {{react.author}}, Status:
-                {% if react.status == True or react.status == None %}
+                {% if react.status == False or react.status == None %}
                 Not accepted
                 {% else %}
                 Accepted

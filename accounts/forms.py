@@ -5,15 +5,13 @@ from django.contrib.auth.models import User, Group
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="Email")
-    first_name = forms.CharField(label="Name")
-    last_name = forms.CharField(label="Last Name")
+    # first_name = forms.CharField(label="Name")
+    # last_name = forms.CharField(label="Last Name")
 
     class Meta:
         model = User
         fields = (
             "username",
-            "first_name",
-            "last_name",
             "email",
             "password1",
             "password2",

@@ -35,7 +35,7 @@ Reacts to {{ user.get_username }}'s announces
                    {% if request.user == react.announce.author and react.status == False %}
                     <p class="d-flex justify-content:flex-end mb-5">
                         <a class="btn btn-primary text-uppercase"
-                           href="{% url 'react-accept' react_id=react.id announce_id=react.announce.id %}">Accept →</a>
+                           href="{% url 'react-accept' react_id=react.id announce_id=react.announce.id%}">Accept →</a>
                     </p>
 
                     {% else %}

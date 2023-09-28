@@ -28,7 +28,7 @@
            <ul class="navbar-nav ml-auto">
                <li class="nav-item active">
                    <li class="nav-item">
-                   <a class="nav-link" href="/announce/">Home</a>
+                   <a class="nav-link" href="/announce/">All announces</a>
                    </a>
                </li>
 
@@ -41,6 +41,9 @@
                </li>
                 <li>
                    <a class="nav-link"  href="{% url 'my_announces' %}">My announce</a>
+               </li>
+               <li>
+                   <a class="nav-link"  href="{% url 'reacts_to_announces' %}">React on my announce</a>
                </li>
                 <li>
                    <a class="nav-link"> {{user.username}}| <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
